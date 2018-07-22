@@ -1,14 +1,14 @@
 <?php 
     // NGROK and sandbox
-	// $phonenumber = $_GET['MSISDN'];  
-    // $sessionID = $_GET['sessionId'];  
-    // $servicecode = $_GET['serviceCode'];  
-    // $ussdString = $_GET['text'];
+	$phonenumber = $_GET['MSISDN'];  
+    $sessionID = $_GET['sessionId'];  
+    $servicecode = $_GET['serviceCode'];  
+    $ussdString = $_GET['text'];
 
-    $phonenumber = $_POST['phoneNumber'];
-    $sessionID = $_POST['sessionId'];  
-    $servicecode = $_POST['serviceCode'];  
-    $ussdString = $_POST['text'];
+    // $phonenumber = $_POST['phoneNumber'];
+    // $sessionID = $_POST['sessionId'];  
+    // $servicecode = $_POST['serviceCode'];  
+    // $ussdString = $_POST['text'];
 
     // Sandbox Settings, Database Settings
     require_once('settings.php');
@@ -61,6 +61,45 @@
         }else if (count($details) == 2 ){
             $amount = $details[1];
 
+            $gateway  = new AfricasTalkingGateway(username, apikey, "sandbox");
+
+            $productName  = "swahilipot";
+
+            $currencyCode = "KES";
+
+            $recipient1   = array("phoneNumber" => "+254723953897",
+                            "currencyCode" => "KES",
+                            "amount"       => 10.50,
+                            "metadata"     => array("name"   => "Brian",
+                                                    "reason" => "Code Challenge")
+            );
+            
+            $recipients = array($recipient1);
+
+            try {
+                $responses = $gateway->mobilePaymentB2CRequest($productName, $recipients);
+                
+                foreach($responses as $response) {
+                    // Parse the responses and print them out
+                    echo "phoneNumber=".$response->phoneNumber;
+                    echo ";status=".$response->status;
+                    
+                    if ($response->status == "Queued") {
+                    echo ";transactionId=".$response->transactionId;
+                    echo ";provider=".$response->provider;
+                    echo ";providerChannel=".$response->providerChannel;
+                    echo ";value=".$response->value;
+                    echo ";transactionFee=".$response->transactionFee."\n";
+                    } else {
+                    echo ";errorMessage=".$response->errorMessage."\n";
+                    }
+                }
+                
+            }
+            catch(AfricasTalkingGatewayException $e){
+            echo "Received error response: ".$e->getMessage();
+            }
+            /*
             $phonenumber = str_replace("+", "", $phonenumber);
 
             require_once('config/Constant.php');
@@ -92,6 +131,8 @@
 
             $ussd_text = "You have sent Ksh. ".$amount.". You will receive confirmation message shortly";
             ussd_proceed($ussd_text);
+
+             */
         }
 
     }
