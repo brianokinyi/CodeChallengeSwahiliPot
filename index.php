@@ -108,16 +108,18 @@
 
             $recipientStringFormat = json_encode($recipients);
 
-            $gateway  = new AfricasTalkingGateway($username, $apiKey, "sandbox");
+            $gateway  = new AfricasTalkingGateway(username, apikey, "sandbox");
 
             try {
                 $results = $gateway->sendAirtime($recipientStringFormat);
                 //Error message is important when the status is not Success
-                echo $result->errorMessage;
+                // echo $result->errorMessage;
             }
             catch(AfricasTalkingGatewayException $e){
                 echo $e->getMessage();
             }
+
+            // Now send sms notification
         }
     }
 

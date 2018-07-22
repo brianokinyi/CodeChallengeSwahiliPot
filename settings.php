@@ -6,6 +6,7 @@
     $dbname="";
 
     // Africa's Talking
-    $username   = "brianokinyi";
-    $apikey     = "d52f8d838ef3707610598d646aad213babee3f30fb3b9c9c3fa4f25c2c35ec23";
+
+    define('username', 'sandbox');
+    define('apikey', '12c7de76fe43e3946efaa8507bbb8ad258bcbd93f90afd6b49cd24881327fcdf');
 ?>
