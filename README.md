@@ -3,6 +3,8 @@
 Open Africa's Talking simulation [here](https://simulator.africastalking.com:1517/simulator/)
 Select USSD and run the code:
 ### \*384\*222111#
+Deployed on Heroku
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 ## Due: 30th July,2018 or Earlier
 #### This code challenge is due on the 30th of July,2018 or earlier. 
