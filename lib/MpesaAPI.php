@@ -53,12 +53,12 @@ $xml="xml";
 		For debug purposes only
 		 */
 		$response=$this->submitRequest(URL,$post_string,$headers);
-		echo $response;
+		echo "END $response";
 		/*
 		To get the feedback from the process transaction system
 		For debug purposes only
 		 */
-		echo "Confirm transaction feedback: ".$this->confirmTransaction($response,$TIMESTAMP,$password,$MERCHANT_ID);
+		echo "END Confirm transaction feedback: ".$this->confirmTransaction($response,$TIMESTAMP,$password,$MERCHANT_ID);
 
 	}
 	/*
@@ -107,7 +107,7 @@ $xml="xml";
 		);
 
 		//Do whatever you want with the data. You can as well pass it as Xml data
-		echo $this->submitRequest(URL,$confirmTransactionResponse,$headers);
+		echo "END".$this->submitRequest(URL,$confirmTransactionResponse,$headers);
 		
 	}
 
@@ -142,7 +142,7 @@ $xml="xml";
 		"SOAPAction: \"transactionStatusRequest\"",
 		);
 
-		echo $this->submitRequest(URL,$post_string,$headers);
+		echo "END".$this->submitRequest(URL,$post_string,$headers);
 	}
 
 	function submitRequest($url,$post_string,$headers){
@@ -162,7 +162,7 @@ $xml="xml";
 		{
 			$err = 'Curl error: ' . curl_error($ch);
 			curl_close($ch);
-			echo "Error \n".$err;
+			echo "END"."Error \n".$err;
 		}
 		else
 		{

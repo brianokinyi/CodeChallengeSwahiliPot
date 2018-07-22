@@ -89,6 +89,9 @@
             $mpesaclient=new MpesaAPI;
 
             $mpesaclient->processCheckOutRequest($Password,$MERCHENTS_ID,$MERCHANT_TRANSACTION_ID,"Sokoni Deposit",$amount,$phonenumber,$ip);
+
+            $ussd_text = "You have sent Ksh. ".$amount.". You will receive confirmation message shortly";
+            ussd_proceed($ussd_text);
         }
 
     }
@@ -120,6 +123,8 @@
 
                 $results = $gateway->sendMessage($phonenumber, $message);
 
+                $ussd_text = "END You have sent airtime of Ksh. ".$amount." to +254723953897. \n You will receive confirmation message shortly";  
+                ussd_proceed($ussd_text);
             }
             catch(AfricasTalkingGatewayException $e) {
                 $ussd_text = "Encountered an error while sending: ".$e->getMessage();
