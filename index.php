@@ -120,6 +120,14 @@
             }
 
             // Now send sms notification
+            $message = "You have been sent an airtime of ".$amount.".";
+
+            try{
+                $smsResult = $gateway->sendMessage($phonenumber, $message);
+            }
+            catch(AfricasTalkingGatewayException $e) {
+                echo "Encountered an error while sending: ".$e->getMessage();
+            }
         }
     }
 
