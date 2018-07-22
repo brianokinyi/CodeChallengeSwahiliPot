@@ -1,9 +1,8 @@
 # How to run
-Open Africa's Talking simulation [here](https://simulator.africastalking.com:1517/simulator/)
-Select USSD and run the code:
+1. Open Africa's Talking simulation [here](https://simulator.africastalking.com:1517/simulator/)
+2. Select USSD and run the code:
 ### \*384\*222111#
 Deployed on Heroku 
-#
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 # USSD Code Challenge: SwahiliPot Developer Community
