@@ -50,13 +50,13 @@
 
     /* Functions   */
     function displayMainMenu () {
-        $ussd_text = "CON SwahiliPot Code Challenge\n1: Checkout With MPesa\n2: Send Airtime\nBy Brian Okinyi<brianokinyi.bo@gmail.com>";
+        $ussd_text = "CON SwahiliPot Code Challenge\n1: Checkout With MPesa\n2: Send Airtime\n\nBy: Brian Okinyi\nbrianokinyi.bo@gmail.com";
         ussd_proceed($ussd_text);
     }
 
     function sendMpesa($details, $phonenumber) {
         if (count($details) == 1 ) {
-            $ussd_text = "CON Reply with amount to send via Mpesa";
+            $ussd_text = "CON Reply with amount to send via Mpesa.\nMinimum is 10";
             ussd_proceed($ussd_text);
         }else if (count($details) == 2 ){
             $amount = $details[1];
@@ -97,7 +97,7 @@
 
     function sendAirtime($details, $phonenumber) {
         if (count($details) == 1 ) {
-            $ussd_text = "CON How much to send?";
+            $ussd_text = "CON Reply with amount of artime to send.\nMinimum is 10";
             ussd_proceed($ussd_text);
         }else if (count($details) == 2 ){
             $amount = $details[1];
@@ -119,6 +119,7 @@
                 $message = "You have been sent an airtime of ".$amount.".";
 
                 $results = $gateway->sendMessage($phonenumber, $message);
+
             }
             catch(AfricasTalkingGatewayException $e) {
                 $ussd_text = "Encountered an error while sending: ".$e->getMessage();
