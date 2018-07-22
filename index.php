@@ -67,11 +67,13 @@
 
             $currencyCode = "KES";
 
-            $recipient1   = array("phoneNumber" => "+254723953897",
+            $recipient1   = array("phoneNumber" => $phonenumber,
                             "currencyCode" => "KES",
-                            "amount"       => 10.50,
+                            "amount"       => $amount,
+                            'provider'     => "Mpesa",
                             "metadata"     => array("name"   => "Brian",
-                                                    "reason" => "Code Challenge")
+                                                    "reason" => "Code Challenge"
+                                                    )
             );
             
             $recipients = array($recipient1);
@@ -79,60 +81,13 @@
             try {
                 $responses = $gateway->mobilePaymentB2CRequest($productName, $recipients);
                 
-                foreach($responses as $response) {
-                    // Parse the responses and print them out
-                    echo "phoneNumber=".$response->phoneNumber;
-                    echo ";status=".$response->status;
-                    
-                    if ($response->status == "Queued") {
-                    echo ";transactionId=".$response->transactionId;
-                    echo ";provider=".$response->provider;
-                    echo ";providerChannel=".$response->providerChannel;
-                    echo ";value=".$response->value;
-                    echo ";transactionFee=".$response->transactionFee."\n";
-                    } else {
-                    echo ";errorMessage=".$response->errorMessage."\n";
-                    }
-                }
-                
+                $ussd_text = "You have sent Ksh. ".$amount.". You will receive confirmation message shortly";
+                ussd_proceed($ussd_text);
             }
             catch(AfricasTalkingGatewayException $e){
-            echo "Received error response: ".$e->getMessage();
+                echo "END Received error response: ".$e->getMessage();
             }
-            /*
-            $phonenumber = str_replace("+", "", $phonenumber);
 
-            require_once('config/Constant.php');
-            require_once('lib/MpesaAPI.php');
-
-            $PAYBILL_NO = "898998";
-            $MERCHENTS_ID = $PAYBILL_NO;
-            function generateRandomString() {
-                $length = 10;
-                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $charactersLength = strlen($characters);
-                $randomString = '';
-                for ($i = 0; $i < $length; $i++) {
-                    $randomString .= $characters[rand(0, $charactersLength - 1)];
-                }
-                return $randomString;
-            }
-            $MERCHANT_TRANSACTION_ID = generateRandomString();
-
-            //Get the server address for callback
-            $host=gethostname();
-            $ip = gethostbyname($host);
-
-            //$Password=Constant::generateHash();
-            $Password='ZmRmZDYwYzIzZDQxZDc5ODYwMTIzYjUxNzNkZDMwMDRjNGRkZTY2ZDQ3ZTI0YjVjODc4ZTExNTNjMDA1YTcwNw==';
-            $mpesaclient=new MpesaAPI;
-
-            $mpesaclient->processCheckOutRequest($Password,$MERCHENTS_ID,$MERCHANT_TRANSACTION_ID,"Sokoni Deposit",$amount,$phonenumber,$ip);
-
-            $ussd_text = "You have sent Ksh. ".$amount.". You will receive confirmation message shortly";
-            ussd_proceed($ussd_text);
-
-             */
         }
 
     }
