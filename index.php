@@ -110,34 +110,19 @@
 
             $gateway  = new AfricasTalkingGateway(username, apikey, "sandbox");
 
-            try {
-                $results = $gateway->sendAirtime($recipientStringFormat);
-                //Error message is important when the status is not Success
-                // echo $result->errorMessage;
-            }
-            catch(AfricasTalkingGatewayException $e){
-                echo $e->getMessage();
-            }
-
-            // Now send sms notification
-            $message = "You have been sent an airtime of ".$amount.".";
 
             try{
                 $results = $gateway->sendAirtime($recipientStringFormat);
 
-                foreach($results as $result) {
-                    echo $result->status;
-                    echo $result->amount;
-                    echo $result->phoneNumber;
-                    echo $result->discount;
-                    echo $result->requestId;
-                    
-                    //Error message is important when the status is not Success
-                    echo $result->errorMessage;
-                }
+
+                // Now send sms notification
+                $message = "You have been sent an airtime of ".$amount.".";
+
+                $results = $gateway->sendMessage($phonenumber, $message);
             }
             catch(AfricasTalkingGatewayException $e) {
-                echo "Encountered an error while sending: ".$e->getMessage();
+                $ussd_text = "Encountered an error while sending: ".$e->getMessage();
+                ussd_proceed($ussd_text);
             }
         }
     }
