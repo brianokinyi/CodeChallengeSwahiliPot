@@ -103,7 +103,7 @@
             $amount = $details[1];
 
             $recipients = array(
-                array("phoneNumber"=>$phonenumber, "amount"=>$amount),
+                array("phoneNumber"=>"+254728938138", "amount"=>"KES 100"),
             );
 
             $recipientStringFormat = json_encode($recipients);
@@ -123,7 +123,18 @@
             $message = "You have been sent an airtime of ".$amount.".";
 
             try{
-                $smsResult = $gateway->sendMessage($phonenumber, $message);
+                $results = $gateway->sendAirtime($recipientStringFormat);
+
+                foreach($results as $result) {
+                    echo $result->status;
+                    echo $result->amount;
+                    echo $result->phoneNumber;
+                    echo $result->discount;
+                    echo $result->requestId;
+                    
+                    //Error message is important when the status is not Success
+                    echo $result->errorMessage;
+                }
             }
             catch(AfricasTalkingGatewayException $e) {
                 echo "Encountered an error while sending: ".$e->getMessage();
