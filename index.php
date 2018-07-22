@@ -35,7 +35,7 @@
     if ($level > 0 ) {
         switch ( $ussdString_explode[0] ) {
             case 1: // 
-                sendMpesa($ussdString_explode, $phonenumber;
+                sendMpesa($ussdString_explode, $phonenumber);
                 break;
             case 2: //  
                 sendAirtime($ussdString_explode, $phonenumber);
