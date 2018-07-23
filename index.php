@@ -1,14 +1,14 @@
 <?php 
     // NGROK and sandbox
-	$phonenumber = $_GET['MSISDN'];  
-    $sessionID = $_GET['sessionId'];  
-    $servicecode = $_GET['serviceCode'];  
-    $ussdString = $_GET['text'];
+	//$phonenumber = $_GET['MSISDN'];  
+    // $sessionID = $_GET['sessionId'];  
+    // $servicecode = $_GET['serviceCode'];  
+    // $ussdString = $_GET['text'];
 
-    // $phonenumber = $_POST['phoneNumber'];
-    // $sessionID = $_POST['sessionId'];  
-    // $servicecode = $_POST['serviceCode'];  
-    // $ussdString = $_POST['text'];
+    $phonenumber = $_POST['phoneNumber'];
+    $sessionID = $_POST['sessionId'];  
+    $servicecode = $_POST['serviceCode'];  
+    $ussdString = $_POST['text'];
 
     // Sandbox Settings, Database Settings
     require_once('settings.php');
