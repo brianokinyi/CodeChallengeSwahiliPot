@@ -81,7 +81,7 @@
             try {
                 $responses = $gateway->mobilePaymentB2CRequest($productName, $recipients);
                 
-                $ussd_text = "You have sent Ksh. ".$amount.". You will receive confirmation message shortly";
+                $ussd_text = "END You have sent Ksh. ".$amount.". You will receive confirmation message shortly";
                 ussd_proceed($ussd_text);
             }
             catch(AfricasTalkingGatewayException $e){
